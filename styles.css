@@ -1,0 +1,257 @@
+/* styles.css */
+
+:root {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --accent-color: #e53935; /* A vibrant red for accents */
+  --shadow-color: rgba(0, 0, 0, 0.7);
+  --whatsapp-green: #25D366; /* WhatsApp green color */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  animation: fadeInPage 1s ease-out;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  animation: slideDown 1s ease-out;
+}
+
+.logo {
+  max-width: 200px; /* Adjust as needed */
+  width: 50%; /* Responsive width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+main {
+  max-width: 1200px; /* Limit content width */
+  margin: 0 auto; /* Center content */
+  padding: 1rem;
+  text-align: center; /* Center inline-block elements like the button */
+}
+
+/* Main video container (YouTube iframe) */
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  margin: 2rem 0;
+  box-shadow: 0 4px 16px var(--shadow-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  animation: fadeInUp 1s ease-out;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Gallery styles */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+  gap: 1rem;
+  margin-top: 2rem; /* Add space above gallery */
+  margin-bottom: 2rem; /* Add space below gallery */
+  text-align: left; /* Reset text-align for grid items */
+}
+
+.gallery-item {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* Default 1:1 aspect ratio; overridden by JS */
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease-out forwards;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* Indicate clickable */
+}
+
+/* Calculate animation delay in JS */
+/* .gallery-item:nth-child(n) { animation-delay: calc(n * 100ms); } */
+
+.gallery-item:hover {
+  transform: scale(1.05) translateY(0); /* Slight lift on hover */
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+.gallery-item img,
+.gallery-item video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the container */
+  pointer-events: none; /* IMPORTANT: Prevent direct interaction (play/click) */
+  display: block; /* Remove extra space below */
+}
+
+/* Play icon for videos in the gallery */
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem; /* Make icon larger */
+  color: rgba(255, 255, 255, 0.8); /* White with some transparency */
+  background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent circle */
+  border-radius: 50%;
+  width: 50px; /* Fixed size */
+  height: 50px; /* Fixed size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* Icon should not be interactive */
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .play-icon {
+    opacity: 1; /* Full opacity on hover */
+}
+
+/* Modal (Lightbox) Styles */
+.hidden {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0; /* Cover the entire viewport */
+  background: rgba(0, 0, 0, 0.9); /* Darker overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure modal is on top */
+  padding: 1rem; /* Add padding around content */
+  opacity: 0; /* Start hidden for animation */
+  pointer-events: none; /* Prevent interaction when hidden */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modal.visible {
+    opacity: 1;
+    pointer-events: auto; /* Allow interaction when visible */
+}
+
+.modal-content {
+  position: relative;
+  max-width: 95%; /* Limit width */
+  max-height: 95%; /* Limit height */
+  display: flex; /* Use flex for easier centering if needed */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content img,
+.modal-content video {
+  display: block;
+  max-width: 100%; /* Ensure media fits within modal-content */
+  max-height: calc(95vh - 4rem); /* Adjust max height based on viewport and padding */
+  width: auto;   /* Maintain aspect ratio */
+  height: auto;  /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure whole media is visible */
+}
+
+/* Style for zoomed-in image */
+.modal-content img.zoomed {
+    max-width: none; /* Allow image to exceed container width when zoomed */
+    max-height: none;/* Allow image to exceed container height when zoomed */
+    cursor: zoom-out;
+    /* Note: Actual zoom/pan might need JavaScript library */
+    transform: scale(1.5); /* Example basic zoom */
+}
+
+/* Close button for the modal */
+.modal-close {
+  position: fixed; /* Position relative to viewport */
+  top: 20px; /* Distance from top */
+  right: 20px; /* Distance from right */
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5); /* Slight background for visibility */
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001; /* Ensure close button is above modal content */
+  width: 40px;
+  height: 40px;
+  line-height: 40px; /* Center the '×' */
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Lighten on hover */
+}
+
+/* WhatsApp Button Style */
+.whatsapp-button {
+  display: inline-block; /* Allow setting padding and centering */
+  background-color: var(--whatsapp-green);
+  color: #ffffff; /* White text */
+  padding: 10px 20px; /* Medium-small padding */
+  border-radius: 20px; /* Rounded corners */
+  text-decoration: none; /* Remove underline from link */
+  font-weight: bold;
+  font-size: 1rem; /* Adjust size as needed */
+  margin: 2rem auto; /* Add space around the button and center it */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.whatsapp-button:hover {
+  background-color: #1ebe57; /* Slightly darker green on hover */
+  color: #ffffff;
+  transform: scale(1.03); /* Slight scale effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Animations */
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
