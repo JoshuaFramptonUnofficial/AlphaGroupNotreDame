@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Updated list of filenames, extracted from the paths provided
     const files = [
       "Screenshot_20250406_194002_BeReal.png",
-      "20250406_125039.jpg",
       "20250406_130501.jpg",
       "20250406_214458.jpg",
       "20250407_085737.jpg",
