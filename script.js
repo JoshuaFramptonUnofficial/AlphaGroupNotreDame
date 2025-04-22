@@ -12,71 +12,92 @@ document.addEventListener('DOMContentLoaded', () => {
         return; // Stop execution if elements are missing
     }
 
-    // Full list of filenames - with specified files removed
+    // Updated list of filenames, extracted from the paths provided
     const files = [
-      "20250406_094556.mp4",         "20250406_180741.mp4",     
-      "20250406_110310.jpg",         "20250406_132720.jpg",
-      "20250406_132728.jpg",         "20250406_160551.jpg",
-      "20250406_215222.mp4",         "20250406_105258.jpg",
-      "20250406_105637.jpg",         "20250406_124634.jpg",
-      "20250406_125016(0).jpg",      "20250406_125016.jpg",
-      "20250406_132729.jpg",         "20250406_151517(0).jpg",
-      "20250406_160552(0).jpg",      "20250406_160552.jpg",
-      "20250406_224740.jpg",         "20250407_083315.jpg",
-      "Screenshot_20250406_194002_BeReal.png", /*"20250406_125017.jpg", Removed */
-      "20250406_125039.jpg",         "20250406_130501.jpg",
-      "20250406_132730.jpg",         "20250406_160553.jpg",
-      "20250406_214458.jpg",         "20250407_085737.jpg",
-      /* "20250406_125014.jpg", Removed */ /* "20250406_125018.jpg", Removed */
-      "20250406_103133.jpg",         "20250406_162607.mp4",
-	  "20250406_095806.mp4",
-      "20250406_124632.jpg",         /* "20250406_125010(0).jpg", Removed */
-      "20250406_132731.jpg",         "20250406_222015.mp4",
-      "20250406_113106.jpg",         "20250406_114409.jpg",
-      "20250406_122507(0).jpg",      "20250406_122507.jpg",
-      "20250406_124738.jpg",         /* "20250406_125007.jpg", Removed */
-      /* "20250406_125013.jpg", Removed */ /* "20250406_125018(0).jpg", Removed */
-      "20250406_105644.jpg",         "20250406_105645.jpg",
-      "20250406_105647(0).jpg",      "20250406_111202.jpg",
-      "20250406_113105.jpg",         "20250406_113106(0).jpg",
-      "20250406_114357.jpg",         "20250406_114402.jpg",
-      /* "20250406_125010.jpg", Removed */ "20250406_104408.jpg",
-      "20250406_105416.jpg",         "20250406_105614.jpg",
-      "20250406_105639.jpg",         "20250406_105643.jpg",
-      "20250406_105646.jpg",         "20250406_105647.jpg",
-      "20250406_113049.jpg",         /* "20250410_150211.jpg", Removed */
-      "20250406_103119.jpg",         "20250406_105259.jpg",
-      "20250406_105417.jpg",         "20250406_105419.jpg",
-      "20250406_105533.jpg",          /* "20250406_094554 (2).jpg", Removed */
-      "20250406_103152.jpg",         "20250406_104150.jpg",
-      "20250406_104356.jpg",         "20250406_104404.jpg",
-      "20250406_104406.jpg",         "20250406_105327.jpg",
-      "20250406_105642.jpg",         "20250407_063327.mp4",
-      "20250406_095848.mp4",
-      "20250406_095854.jpg",         "20250406_100240.jpg",
-      "20250406_100342.jpg",         "20250406_101211.jpg",
-      "20250406_101212.jpg",         "20250406_103117.jpg",
-      "20250406_104142.jpg",         "20250406_105307.jpg",
-      "20250406_201836.jpg",         "file_00000000f0e45230827db54a11d0c407_conversation_id=67f24702-1360-8008-b1d0-862e3d98d3b7&message_id=30ea7d4e-8c34-4fce-946e-e760ba59bb56.PNG",
-      /* "20250406_125011.jpg", Removed */ "20250406_125908.jpg",
-      "20250406_151516.jpg",         "20250406_160554.jpg",
+      "Screenshot_20250406_194002_BeReal.png",
+      "20250406_125039.jpg",
+      "20250406_130501.jpg",
+      "20250406_214458.jpg",
+      "20250407_085737.jpg",
+      "20250406_103133.jpg",
+      "20250406_162607.mp4",
+      "20250406_095806.mp4",
+      "20250406_124632.jpg",
+      "20250406_132731.jpg",
+      "20250406_222015.mp4",
+      "20250406_113106.jpg",
+      "20250406_114409.jpg",
+      "20250406_122507(0).jpg",
+      "20250406_122507.jpg",
+      "20250406_124738.jpg",
+      "20250406_105644.jpg",
+      "20250406_111202.jpg",
+      "20250406_113105.jpg",
+      "20250406_113106(0).jpg",
+      "20250406_114357.jpg",
+      "20250406_114402.jpg",
+      "20250406_104408.jpg",
+      "20250406_105416.jpg",
+      "20250406_105643.jpg",
+      "20250406_105647.jpg",
+      "20250406_113049.jpg",
+      "20250406_103119.jpg",
+      "20250406_105259.jpg",
+      "20250406_105417.jpg",
+      "20250406_105419.jpg",
+      "20250406_105533.jpg",
+      "20250406_103152.jpg",
+      "20250406_104150.jpg",
+      "20250406_104356.jpg",
+      "20250406_104406.jpg",
+      "20250406_105327.jpg",
+      "20250406_105642.jpg",
+      "20250407_063327.mp4",
+      "20250406_095854.jpg",
+      "20250406_100240.jpg",
+      "20250406_100342.jpg",
+      "20250406_101211.jpg",
+      "20250406_101212.jpg",
+      "20250406_103117.jpg",
+      "20250406_105307.jpg",
+      "20250406_201836.jpg",
+      "20250406_125908.jpg",
+      "20250406_151516.jpg",
       "20250406_115624.mp4",
-      "20250407_091710.jpg",         
-      "20250406_190240.mp4",         "20250406_160553(0).jpg",
-      "20250406_230433.mp4",         "20250407_110047.jpg",
-      "20250406_151301.mp4",         "20250406_214510.jpg",
-      "20250407_124842.jpg",         "20250407_125057.jpg",
-      "VID-20250407-WA0043.mp4",     "VID-20250407-WA0152.mp4",
-	  "20250406_163845.mp4",
-      "20250407_083327.jpg",    /* "20250406_110024.jpg", Removed */
-      "20250406_214508.jpg",         "20250407_091812.mp4",
-      "VID-20250407-WA0042.mp4",     "20250407_121742.mp4",
-      "20250406_105253.jpg",         "20250406_105616.jpg",
-      "20250406_130400.jpg",         "20250406_151517.jpg",
-      "20250406_163724.mp4",         "20250406_163901.jpg",
-      "20250406_180814.mp4",         "20250406_103131.jpg",
-      "20250406_122506.jpg",         /* "20250406_125012.jpg", Removed */
-      "20250406_152024.jpg",         "20250407_085733.jpg",
+      "20250407_091710.jpg",
+      "20250406_190240.mp4",
+      "20250407_110047.jpg",
+      "20250406_151301.mp4",
+      "20250406_214510.jpg",
+      "20250407_124842.jpg",
+      "20250407_125057.jpg",
+      "VID-20250407-WA0043.mp4",
+      "VID-20250407-WA0152.mp4",
+      "20250406_163845.mp4",
+      "20250407_083327.jpg",
+      "20250407_091812.mp4",
+      "VID-20250407-WA0042.mp4",
+      "20250407_121742.mp4",
+      "20250406_105253.jpg",
+      "20250406_151517.jpg",
+      "20250406_163724.mp4",
+      "20250406_163901.jpg",
+      "20250406_103131.jpg",
+      "20250406_122506.jpg",
+      "20250406_152024.jpg",
+      "20250407_085733.jpg",
+      "20250406_094556.mp4",
+      "20250406_180741.mp4",
+      "20250406_110310.jpg",
+      "20250406_215222.mp4",
+      "20250406_105258.jpg",
+      "20250406_105637.jpg",
+      "20250406_124634.jpg",
+      "20250406_125016(0).jpg",
+      "20250406_151517(0).jpg",
+      "20250406_160552(0).jpg",
+      "20250406_224740.jpg",
+      "20250407_083315.jpg"
     ];
 
     // Function to create and append gallery items
@@ -96,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isImage) {
             mediaElement = new Image();
-            mediaElement.src = file;
+            mediaElement.src = file; // Use just the filename
             mediaElement.alt = file; // Add alt text
             mediaElement.onload = () => {
                 // Update aspect ratio based on natural dimensions
@@ -107,12 +128,17 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             mediaElement.onerror = () => {
                 console.error(`Failed to load image: ${file}`);
-                wrapper.style.border = '1px dashed red'; // Indicate load failure
+                // Add visual indication of load failure
+                wrapper.style.border = '1px dashed #e53935'; // Use accent color
+                wrapper.style.display = 'flex';
+                wrapper.style.alignItems = 'center';
+                wrapper.style.justifyContent = 'center';
+                wrapper.innerHTML = `<span style="color: #e53935; font-size: 0.8em; padding: 5px;">Load Error</span>`;
             };
             wrapper.appendChild(mediaElement);
         } else if (isVideo) {
             mediaElement = document.createElement('video');
-            mediaElement.src = file;
+            mediaElement.src = file; // Use just the filename
             mediaElement.preload = 'metadata'; // Load only metadata initially
             mediaElement.muted = true; // Mute preview
             mediaElement.playsInline = true; // Important for mobile
@@ -126,7 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
             };
              mediaElement.onerror = () => {
                 console.error(`Failed to load video: ${file}`);
-                wrapper.style.border = '1px dashed red'; // Indicate load failure
+                 // Add visual indication of load failure
+                wrapper.style.border = '1px dashed #e53935'; // Use accent color
+                wrapper.style.display = 'flex';
+                wrapper.style.alignItems = 'center';
+                wrapper.style.justifyContent = 'center';
+                wrapper.innerHTML = `<span style="color: #e53935; font-size: 0.8em; padding: 5px;">Load Error</span>`;
             };
             wrapper.appendChild(mediaElement);
 
@@ -147,11 +178,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Add click listener to the wrapper to open the modal
-        wrapper.addEventListener('click', () => {
-            if (isImage || isVideo) {
-                openModal(file, isVideo);
-            }
-        });
+        // Only add listener if the media element was successfully created (isImage or isVideo)
+        if (isImage || isVideo) {
+             wrapper.addEventListener('click', () => {
+                // Check if the item has an error state before opening modal
+                if (!wrapper.querySelector('span')) { // Don't open modal if error span exists
+                     openModal(file, isVideo);
+                }
+            });
+        }
+
 
         gallery.appendChild(wrapper);
     }
@@ -166,17 +202,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isVideo) {
             const videoElement = document.createElement('video');
-            videoElement.src = src;
+            videoElement.src = src; // Use just the filename
             videoElement.controls = true; // Show native video controls
             videoElement.autoplay = true; // Start playing automatically
             videoElement.muted = false; // Ensure video is not muted in modal
+            videoElement.onerror = () => {
+                modalContent.innerHTML = `<p style="color: white; text-align: center;">Error loading video.</p>`;
+            }
             modalContent.appendChild(videoElement);
         } else {
             const imgElement = new Image();
-            imgElement.src = src;
+            imgElement.src = src; // Use just the filename
             imgElement.alt = "Enlarged view"; // Accessibility
             imgElement.style.cursor = 'zoom-in'; // Indicate zoom capability
             imgElement.classList.add('modal-media'); // Add class for potential styling/selection
+            imgElement.onerror = () => {
+                 modalContent.innerHTML = `<p style="color: white; text-align: center;">Error loading image.</p>`;
+            }
             modalContent.appendChild(imgElement);
 
              // Add click listener for zoom toggle on the image itself
@@ -229,10 +271,29 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.removeEventListener('click', handleModalBackgroundClick);
 
         // Wait for transition to finish before hiding and clearing content
-        modal.addEventListener('transitionend', () => {
-            modal.classList.add('hidden');
-            modalContent.innerHTML = ''; // Clear content after hidden
-        }, { once: true }); // Listener fires only once per close action
+        // Use a flag to prevent multiple triggers if transitionend fires multiple times
+        let transitionEnded = false;
+        modal.addEventListener('transitionend', function handler(e) {
+            // Ensure it's the opacity transition ending on the modal itself
+            if (e.target === modal && e.propertyName === 'opacity' && !transitionEnded) {
+                transitionEnded = true;
+                modal.classList.add('hidden');
+                modalContent.innerHTML = ''; // Clear content after hidden
+                modal.removeEventListener('transitionend', handler); // Clean up listener
+            }
+        });
+
+        // Fallback timeout in case transitionend doesn't fire (e.g., transition disabled)
+        setTimeout(() => {
+             if (!transitionEnded) {
+                 transitionEnded = true;
+                 modal.classList.add('hidden');
+                 modalContent.innerHTML = '';
+                 // Ensure listener is removed if timeout fires first
+                 modal.removeEventListener('transitionend', modal.transitionEndHandler);
+             }
+        }, 500); // Match transition duration + buffer
+
     }
 
      // Function to toggle zoom state on modal images
