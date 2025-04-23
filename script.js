@@ -14,7 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Updated list of filenames, extracted from the paths provided
     const files = [
-      "20250407_125103.jpg",
+      "20250406_105637.jpg",
+        "20250406_122506.jpg",
+        "20250407_125103.jpg",
+        "20250407_121742.mp4",
       "Screenshot_20250406_194002_BeReal.png",
       "20250406_130501.jpg",
       "20250406_214458.jpg",
@@ -76,13 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
       "20250407_083327.jpg",
       "20250407_091812.mp4",
       "VID-20250407-WA0042.mp4",
-      "20250407_121742.mp4",
       "20250406_105253.jpg",
       "20250406_151517.jpg",
       "20250406_163724.mp4",
       "20250406_163901.jpg",
       "20250406_103131.jpg",
-      "20250406_122506.jpg",
+      
       "20250406_152024.jpg",
       "20250407_085733.jpg",
       "20250406_094556.mp4",
@@ -90,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
       "20250406_110310.jpg",
       "20250406_215222.mp4",
       "20250406_105258.jpg",
-      "20250406_105637.jpg",
       "20250406_124634.jpg",
       "20250406_125016(0).jpg",
       "20250406_151517(0).jpg",
