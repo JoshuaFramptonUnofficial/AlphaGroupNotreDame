@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
       "Screenshot_20250406_194002_BeReal.png",
       "20250406_130501.jpg",
       "20250406_214458.jpg",
-      "20250407_085737.jpg",
       "20250406_103133.jpg",
       "20250406_162607.mp4",
       "20250406_095806.mp4",
