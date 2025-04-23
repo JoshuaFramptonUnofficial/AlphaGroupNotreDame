@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Essential DOM elements not found!");
         return; // Stop execution if elements are missing
     }
-
+    // hello from Joshua
     // Updated list of filenames, extracted from the paths provided
     const files = [
       "20250406_105637.jpg",
