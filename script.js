@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // hello from Joshua
     // Updated list of filenames, extracted from the paths provided
     const files = [
-      "20250406_105637.jpg",
+      "20250406_105643.jpg",
         "20250406_122506.jpg",
         "20250407_125103.jpg",
         "20250407_121742.mp4",
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "20250406_114402.jpg",
       "20250406_104408.jpg",
       "20250406_105416.jpg",
-      "20250406_105643.jpg",
+      "20250406_105637.jpg",
       "20250406_105647.jpg",
       "20250406_113049.jpg",
       "20250406_103119.jpg",
