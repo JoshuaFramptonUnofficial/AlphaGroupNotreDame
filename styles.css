@@ -19,13 +19,55 @@ body {
   color: var(--text-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow-x: hidden; /* Prevent horizontal scroll */
-  animation: fadeInPage 1s ease-out;
+  /* Initial page fade-in is handled by JS now after loading */
 }
 
+/* Loading Overlay Styles */
+#loading-overlay {
+  position: fixed;
+  inset: 0; /* Cover entire viewport */
+  background-color: var(--bg-color); /* Same as body background */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Ensure it's on top of everything */
+  opacity: 1;
+  transition: opacity 0.5s ease-out; /* Fade out transition */
+}
+
+.loading-logo {
+  width: 150px; /* Adjust size as needed */
+  height: auto;
+  animation: spin 2s linear infinite; /* Spin animation */
+  margin-bottom: 1rem; /* Space between logo and text */
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+/* Main Content Wrapper Styles */
+#main-content {
+  opacity: 1; /* Start visible after loading */
+  transition: opacity 0.5s ease-in; /* Fade in transition */
+  /* Add initial animations for header/main if desired, triggered by JS */
+}
+
+#main-content.content-hidden {
+  opacity: 0;
+  visibility: hidden; /* Hide from layout and interaction */
+  height: 0; /* Collapse space */
+  overflow: hidden; /* Prevent content visibility */
+}
+
+
+/* Header and Logo Styles (inside main-content) */
 header {
   text-align: center;
   padding: 2rem 1rem;
-  animation: slideDown 1s ease-out;
+  /* Removed animation: slideDown - will be triggered by JS if needed */
 }
 
 .logo {
@@ -50,7 +92,7 @@ main {
   box-shadow: 0 4px 16px var(--shadow-color);
   border-radius: 0.5rem;
   overflow: hidden;
-  animation: fadeInUp 1s ease-out;
+  /* Removed animation: fadeInUp - will be triggered by JS if needed */
 }
 
 .video-container iframe {
@@ -76,17 +118,21 @@ main {
   width: 100%;
   padding-top: 100%; /* Default 1:1 aspect ratio; overridden by JS */
   overflow: hidden;
-  opacity: 0;
+  opacity: 0; /* Start hidden for JS-triggered animation */
   transform: translateY(20px);
-  animation: fadeInUp 1s ease-out forwards;
+  /* Animation applied via JS */
   border-radius: 0.5rem;
   box-shadow: 0 4px 12px var(--shadow-color);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer; /* Indicate clickable */
 }
 
-/* Calculate animation delay in JS */
-/* .gallery-item:nth-child(n) { animation-delay: calc(n * 100ms); } */
+.gallery-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
 
 .gallery-item:hover {
   transform: scale(1.05) translateY(0); /* Slight lift on hover */
@@ -155,7 +201,7 @@ main {
 
 .modal-content {
   position: relative;
-  max-width: 95%; /* Limit width */
+  max-width: 90%; /* Adjust width to make space for arrows */
   max-height: 95%; /* Limit height */
   display: flex; /* Use flex for easier centering if needed */
   justify-content: center;
@@ -170,6 +216,7 @@ main {
   width: auto;   /* Maintain aspect ratio */
   height: auto;  /* Maintain aspect ratio */
   object-fit: contain; /* Ensure whole media is visible */
+  border-radius: 4px; /* Optional: slight rounding */
 }
 
 /* Style for zoomed-in image */
@@ -177,33 +224,68 @@ main {
     max-width: none; /* Allow image to exceed container width when zoomed */
     max-height: none;/* Allow image to exceed container height when zoomed */
     cursor: zoom-out;
-    /* Note: Actual zoom/pan might need JavaScript library */
     transform: scale(1.5); /* Example basic zoom */
+    /* Note: Actual zoom/pan might need JavaScript library */
 }
 
 /* Close button for the modal */
 .modal-close {
   position: fixed; /* Position relative to viewport */
-  top: 20px; /* Distance from top */
-  right: 20px; /* Distance from right */
-  font-size: 2rem;
+  top: 15px; /* Distance from top */
+  right: 15px; /* Distance from right */
+  font-size: 2.5rem; /* Slightly larger */
   font-weight: bold;
   color: #fff;
-  background: rgba(0, 0, 0, 0.5); /* Slight background for visibility */
+  background: rgba(0, 0, 0, 0.4); /* Slight background for visibility */
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 1001; /* Ensure close button is above modal content */
-  width: 40px;
-  height: 40px;
-  line-height: 40px; /* Center the '×' */
+  z-index: 1005; /* Ensure close button is above arrows and content */
+  width: 45px;
+  height: 45px;
+  line-height: 45px; /* Center the '×' */
   text-align: center;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  padding: 0; /* Remove default padding */
 }
 
 .modal-close:hover {
   background-color: rgba(255, 255, 255, 0.3); /* Lighten on hover */
+  transform: scale(1.1);
 }
+
+/* Modal Navigation Arrows */
+.modal-nav {
+    position: fixed; /* Position relative to viewport */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    color: #fff; /* White arrow */
+    border: none;
+    font-size: 3rem; /* Large arrow */
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001; /* Above content, below close button */
+    padding: 10px 15px; /* Padding around arrow */
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    user-select: none; /* Prevent text selection */
+    line-height: 1; /* Adjust line height for better vertical centering of char */
+}
+
+.modal-nav:hover {
+    background: rgba(0, 0, 0, 0.6); /* Darker on hover */
+    transform: translateY(-50%) scale(1.1); /* Scale effect */
+}
+
+.modal-prev {
+    left: 15px; /* Position left arrow */
+}
+
+.modal-next {
+    right: 15px; /* Position right arrow */
+}
+
 
 /* WhatsApp Button Style */
 .whatsapp-button {
@@ -229,29 +311,13 @@ main {
 
 
 /* Animations */
-@keyframes fadeInPage {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* Removed page-level animations, handled by JS or applied to specific elements */
+/* @keyframes fadeInPage ... */
+/* @keyframes slideDown ... */
+/* @keyframes fadeInUp ... */
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
