@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure this list is accurate and files are in the correct relative path
     const files = [
       "20250406_130501.jpg", 
-      "20250406_214458.jpg", "IMG-20250407-WA0008.jpg", "IMG-20250407-WA0012.jpg",
+      "20250406_214458.jpg", "IMG-20250407-WA0012.jpg",
 	  "20250407_125103.jpg", "Screenshot_20250406_194002_BeReal.png", 
       "IMG-20250407-WA0014.jpg", "IMG-20250407-WA0011.jpg", "IMG-20250407-WA0017_1.jpg",
       "20250406_103133.jpg", "20250406_162607.mp4", "20250406_095806.mp4",
